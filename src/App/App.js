@@ -1,9 +1,9 @@
 import React from 'react';
-import { Switch, Route, Link, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.css';
-import MicRecorder from 'mic-recorder-to-mp3';
-import Email from './Email';
+import Email from '../EmailScreen/Email';
+import Record from '../RecordScreen/Record';
 
 function App() {
     return (
@@ -17,8 +17,8 @@ function App() {
                             <TransitionGroup>
                                 <CSSTransition key={location.key} timeout={300} classNames="fade">
                                     <Switch location={location}>
-                                        <Route path="/" component={Email} />
-                                        {/* <Route path="/record" component={Record} /> */}
+                                        {/* <Route path="/" component={Email} /> */}
+                                        <Route path="/record" component={Record} />
                                         {/* <Route path="/download" component={Download} /> */}
                                     </Switch>
                                 </CSSTransition>

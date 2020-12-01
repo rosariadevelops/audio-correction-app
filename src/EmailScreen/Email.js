@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-// import styles from './Email.module.css';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-const EmailInput = () => {
+const Email = () => {
     const [value, setValue] = useState({});
+    const [error, setError] = useState();
 
     const handleChange = (e) => {
         setValue({
@@ -17,33 +18,34 @@ const EmailInput = () => {
     function handleSubmit(e) {
         e.preventDefault();
         axios
-            .post('/audio-convert', value)
+            .post('/add-email', value)
             .then(function (response) {
                 console.log('login response:', response.data);
-                /* if (response) {
-                    location.replace('/');
+                if (response) {
+                    console.log('Email submitted');
+                    <Redirect to="/record" />;
                 } else {
                     setError(true);
-                } */
+                }
             })
             .catch(function (err) {
-                console.log('err in  POST /create-idea: ', err);
+                console.log('err in  POST /add-email: ', err);
             });
-        //}
-        console.log('login state:', this.state);
     }
 
     return (
         <React.Fragment>
             <div className="input-ctr">
-                <label htmlFor="idea_title">Email:</label>
+                <label htmlFor="idea_title">Please enter your email:</label>
                 <input onChange={(e) => handleChange(e)} type="text" name="email" autoComplete="false" placeholder="Enter your email" />
+
+                {error && <p className="error">{error}</p>}
+                <button onClick={(e) => handleSubmit(e)} type="submit" name="emailSubmitted" value="emailSubmitted" className="button email">
+                    Next
+                </button>
             </div>
-            <button onClick={(e) => handleSubmit(e)} type="submit" name="emailSubmitted" value="emailSubmitted">
-                Create project idea
-            </button>
         </React.Fragment>
     );
 };
 
-export default EmailInput;
+export default Email;
