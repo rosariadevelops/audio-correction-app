@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Switch, Route, Link, BrowserRouter } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.css';
+import MicRecorder from 'mic-recorder-to-mp3';
+import Email from './Email';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <React.Fragment>
+            <BrowserRouter>
+                <div className="App">
+                    <h1>Correct your audio</h1>
+                    <p>Record your audio and have it corrected for grammatical errors.</p>
+                    <Route
+                        render={({ location }) => (
+                            <TransitionGroup>
+                                <CSSTransition key={location.key} timeout={300} classNames="fade">
+                                    <Switch location={location}>
+                                        <Route path="/" component={Email} />
+                                        {/* <Route path="/record" component={Record} /> */}
+                                        {/* <Route path="/download" component={Download} /> */}
+                                    </Switch>
+                                </CSSTransition>
+                            </TransitionGroup>
+                        )}
+                    />
+                </div>
+            </BrowserRouter>
+        </React.Fragment>
+    );
 }
 
 export default App;
